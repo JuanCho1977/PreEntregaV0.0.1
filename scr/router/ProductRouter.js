@@ -6,7 +6,7 @@ const clientManagerFs = require('./manager/FileSystem/clientManagerFs');
 
 
 
-router.get('/products', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const products = await productManagerFs.getProducts();
     res.json(products);
@@ -15,7 +15,7 @@ router.get('/products', async (req, res) => {
   }
 });
 
-router.get('/products/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const product = await productManagerFs.getProduct((link.unavailable));
     res.json(product);
@@ -24,7 +24,7 @@ router.get('/products/:id', async (req, res) => {
   }
 });
 
-router.post('/products', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const product = await productManagerFs.createProduct(req.body);
     res.json(product);
@@ -33,7 +33,7 @@ router.post('/products', async (req, res) => {
   }
 });
 
-router.put('/products/:id', async (req, res) => {
+router.put('/', async (req, res) => {
   try {
     const product = await productManagerFs.updateProduct((link.unavailable), req.body);
     res.json(product);
@@ -42,7 +42,7 @@ router.put('/products/:id', async (req, res) => {
   }
 });
 
-router.delete('/products/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     await productManagerFs.deleteProduct((link.unavailable));
     res.json({});

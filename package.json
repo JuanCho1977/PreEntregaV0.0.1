@@ -1,9 +1,10 @@
 {
-  "name"2dev: "proyect1",
+  "name": "preentregav0.0.1",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-        "start": "node server.js",
+        "start": "node ./scr/server.js",
+        "dev" : "node --wach ./scr/server.js"
         
   },
   "keywords": [],
