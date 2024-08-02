@@ -35,10 +35,28 @@ formProduct.addEventListener('submit', async (e) => {
 	const nombre = document.getElementById('nombre').value;
 	const precio = document.getElementById('precio').value;
 	try {
-		await productManagerFs.c  reateProduct({ nombre, precio });
+		await productManagerFs.createProduct({ nombre, precio });
 		console.log('Producto creado con éxito');
 	} catch (error) {
 		console.error('Error al crear producto:', error);
 	}
 });
 
+let carrito = [];
+
+function agregarAlCarrito(producto) {
+carrito.push(producto);
+actualizarCarrito();
+}
+
+function actualizarCarrito() {
+const listaCarrito = document.getElementById('lista-carrito');
+
+listaCarrito.innerHTML = '';
+
+carrito.forEach((producto, indice) => {
+const elemento = document.createElement('lista');
+elemento.textContent = ${producto.nombre} - ${producto.precio};
+listaCarrito.appendChild(elemento);
+});
+}
