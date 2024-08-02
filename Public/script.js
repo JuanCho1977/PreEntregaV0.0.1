@@ -35,7 +35,7 @@ formProduct.addEventListener('submit', async (e) => {
 	const nombre = document.getElementById('nombre').value;
 	const precio = document.getElementById('precio').value;
 	try {
-		await productManagerFs.createProduct({ nombre, precio });
+		await productManagerFs.c  reateProduct({ nombre, precio });
 		console.log('Producto creado con éxito');
 	} catch (error) {
 		console.error('Error al crear producto:', error);
