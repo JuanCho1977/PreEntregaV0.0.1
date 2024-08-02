@@ -2,10 +2,10 @@
 
 const {Router} = require('express');
 const router = Router();
-const clientManagerFs = require('.scr/manager/FileSystem/clientManagerFs');
+//const clientManagerFs = require('.scr/manager/FileSystem/clientManagerFs');
 
 
-router.get('/clients', async (req, res) => {
+router.get('/dbclients', async (req, res) => {
   try {
     const clients = await clientManagerFs.getClients();
     res.json(clients);
@@ -14,7 +14,7 @@ router.get('/clients', async (req, res) => {
   }
 });
 
-router.get('/clients/:id', async (req, res) => {
+router.get('/dbclients/:id', async (req, res) => {
   try {
     const client = await clientManagerFs.getClient((link.unavailable));
     res.json(client);
@@ -23,7 +23,7 @@ router.get('/clients/:id', async (req, res) => {
   }
 });
 
-router.post('/clients', async (req, res) => {
+router.post('/dbclients', async (req, res) => {
   try {
     const client = await clientManagerFs.createClient(req.body);
     res.json(client);
@@ -32,7 +32,7 @@ router.post('/clients', async (req, res) => {
   }
 });
 
-router.put('/clients/:id', async (req, res) => {
+router.put('/dbclients/:id', async (req, res) => {
   try {
     const client = await clientManagerFs.updateClient((link.unavailable), req.body);
     res.json(client);
@@ -41,7 +41,7 @@ router.put('/clients/:id', async (req, res) => {
   }
 });
 
-router.delete('/clients/:id', async (req, res) => {
+router.delete('/dbclients/:id', async (req, res) => {
   try {
     await clientManagerFs.deleteClient((link.unavailable));
     res.json({});

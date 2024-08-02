@@ -6,8 +6,8 @@ const app = express();
 const ProductRouter = require('./router/ProductRouter.js');
 const ClientRouter = require('./router/ClientRouter.js');
 const CartRouter = require('./router/CartRouter.js');
-const clientManagerFs = require('./managers/FileSystem/ProductManagerFs.js');
-const productManagerFs = require('./managers/FileSystem/CartManagerFs.js');
+const productManagerFs = require('./managers/FileSystem/ProductManagerFs.js');
+const cartManagerFs = require('./managers/FileSystem/cartManagerFs.js');
 const clientManagerFs = require('./managers/FileSystem/clientManagerFs.js');
 
 
@@ -15,14 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use('/static', express.static(__dirname + "Public"));
 
-app.use("api/cliente", ClientRouter);
-app.use("api/product", ProductRouter);
-app.use("api/cart",CartRouter);
+app.use("./scr/router", ClientRouter);
+app.use("./scr/router", ProductRouter);
+//app.use("api/cart",CartRouter);
 
+//app.get ('/users', (require, response) => { response.send("esta funcionando")
 
+//});
 
 
 
 app.listen(PORT, () => {
-    console.log('Server esta escuchando en port 8080');
+    console.log('Server esta escuchando en puerto: ', PORT);
   });
