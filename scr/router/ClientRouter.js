@@ -5,7 +5,7 @@ const router = Router();
 //const clientManagerFs = require('.scr/manager/FileSystem/clientManagerFs');
 
 
-router.get('/dbclients', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const clients = await clientManagerFs.getClients();
     res.json(clients);
@@ -14,7 +14,7 @@ router.get('/dbclients', async (req, res) => {
   }
 });
 
-router.get('/dbclients/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const client = await clientManagerFs.getClient((link.unavailable));
     res.json(client);
@@ -23,7 +23,7 @@ router.get('/dbclients/:id', async (req, res) => {
   }
 });
 
-router.post('/dbclients', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const client = await clientManagerFs.createClient(req.body);
     res.json(client);
@@ -32,7 +32,7 @@ router.post('/dbclients', async (req, res) => {
   }
 });
 
-router.put('/dbclients/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const client = await clientManagerFs.updateClient((link.unavailable), req.body);
     res.json(client);
@@ -41,7 +41,7 @@ router.put('/dbclients/:id', async (req, res) => {
   }
 });
 
-router.delete('/dbclients/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     await clientManagerFs.deleteClient((link.unavailable));
     res.json({});
@@ -51,3 +51,6 @@ router.delete('/dbclients/:id', async (req, res) => {
 });
 
 module.exports = router
+app.get ('/scr/router', (require, response) => { response.send("esta funcionando")
+
+});

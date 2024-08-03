@@ -6,7 +6,7 @@ const router = Router();
 
 
 
-router.get('/dbproduct', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const products = await productManagerFs.getProducts();
     res.json(products);
@@ -15,7 +15,7 @@ router.get('/dbproduct', async (req, res) => {
   }
 });
 
-router.get('/dbproduct:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const product = await productManagerFs.getProduct((link.unavailable));
     res.json(product);
@@ -24,7 +24,7 @@ router.get('/dbproduct:id', async (req, res) => {
   }
 });
 
-router.post('/dbproduct', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const product = await productManagerFs.createProduct(req.body);
     res.json(product);
@@ -33,7 +33,7 @@ router.post('/dbproduct', async (req, res) => {
   }
 });
 
-router.put('/dbproduct', async (req, res) => {
+router.put('/', async (req, res) => {
   try {
     const product = await productManagerFs.updateProduct((link.unavailable), req.body);
     res.json(product);
@@ -42,7 +42,7 @@ router.put('/dbproduct', async (req, res) => {
   }
 });
 
-router.delete('/dbproduct:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     await productManagerFs.deleteProduct((link.unavailable));
     res.json({});
