@@ -60,3 +60,5 @@ elemento.textContent = ${producto.nombre} - ${producto.precio};
 listaCarrito.appendChild(elemento);
 });
 }
+ 
+

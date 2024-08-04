@@ -6,6 +6,17 @@
 	<meta charset="UTF-8">
 	<title>Ecommerce</title>
 </head>
+<style>
+	.product, .cart-item {
+		border: 1px solid #ccc;
+		padding: 10px;
+		margin: 10px 0;
+	}
+	.cart {
+		margin-top: 20px;
+	}
+</style>
+
 <body>
 	<h1>Ecommerce version 0.0.1</h1>
 	<h2>Cargar Cliente</h2>
@@ -25,16 +36,23 @@
 		<input type="number" id="precio" name="precio"><br><br>
 		<button type="submit">Cargar Producto</button>
 	</form>
-	<script src="script.js"></script>
 	
-	<div id="carrito">
-		<h2>Carrito de Compra</h2>
-		<ul id="lista-carrito"></ul>
-		<button type="button" onclick="agregarAlCarrito({nombre: document.getElementById('nombre').value, precio: document.getElementById('precio').value})">Agregar al Carrito</button>
+	
+	<h1>Tienda Online</h1>
+    <input type="text" id="search-input" placeholder="Buscar productos..." onkeyup="buscarProducts()">
+    <div id="product-list">
+        
+    </div>
 
-	
-	
-	</div>
+    <div class="cart">
+        <h2>Carrito de Compras</h2>
+        <div id="cart">
+            <!-- Carrito de compras -->
+        </div>
+    </div>
+
+	<script src="script.js"></script>
+
 
 
 		
