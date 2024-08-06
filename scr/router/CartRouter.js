@@ -1,54 +1,119 @@
 //cartRouter.js
 
-//const {Router} = require('express');
-//const router = Router();
-//const cartManagerFs = require('./manager/FileSystem/cartManagerFs');
+const { Router } = require("express");
+const router = Router();
 
+const CartManagerFs = require("../managers/FileSystem/cartManagerFs"); 
+const cartManagerFs = new CartManagerFs();
 
+router.get("/", async (req, res) => {
 
-//router.get('/', async (req, res) => {
-//  try {
-//    const products = await cartManagerFs.getcarts();
-//    res.json(products);
-//  } catch (error) {
-//    res.json([]);
-//  }
-//});
-//
-//router.get('/:id', async (req, res) => {
- ////   //    const product = await productManagerFs.getProduct((link.unavailable));
-    //  try {
-//    res.json(product);
-//  } catch (error) {
-//    res.json({});
-//  }
-//});
+try {
 
-////try {
-////      router.post('/', async (req, res) => {////
- ////   const product = await productManagerFs.createProduct(req.body);
- ////   res.json(product);
-////  } catch (error) {
-////    res.json({});
-////  }
-////});
+const carts = await cartManagerFs.getCarts();
 
-//router.put('/', async (req, res) => {
-//  try {
-//    const product = await productManagerFs.updateProduct((link.unavailable), req.body);
-//    res.json(product);
-//  } catch (error) {
-// //   res.json({});
-//  }
-//});
+res.json({ status: "success", data: carts });
 
-//router.delete('/:id', async (req, res) => {
-//  try {
-//    await productManagerFs.deleteProduct((link.unavailable));
-//    res.json({});
- // } catch (error) {
-// //   res.json({});
-//  }
-//});
+} catch (error) {
 
-//module.exports = router
+res.status(500).json({ status: "error", message: "Internal Server Error" });
+
+}
+
+});
+
+router.get("/:id", async (req, res) => {
+
+try {
+
+const id = Number(req.params.id);
+
+const cart = await cartManagerFs.getCartById(id);
+
+if (cart) {
+
+res.json({ status: "success", data: cart });
+
+} else {
+
+res.status(404).json({ status: "error", message: "Cart not found" });
+
+}
+
+} catch (error) {
+
+res.status(500).json({ status: "error", message: "Internal Server Error" });
+
+}
+
+});
+
+router.post("/", async (req, res) => {
+
+try {
+
+const cart = await cartManagerFs.createCart(req.body);
+
+res.status(201).json({ status: "success", data: cart });
+
+} catch (error) {
+
+res.status(500).json({ status: "error", message: "Internal Server Error" });
+
+}
+
+});
+
+router.put("/:id", async (req, res) => {
+
+try {
+
+const id = Number(req.params.id);
+
+const updatedCart = await cartManagerFs.updateCart(id, req.body);
+
+if (updatedCart) {
+
+res.json({ status: "success", data: updatedCart });
+
+} else {
+
+res.status(404).json({ status: "error", message: "Cart not found" });
+
+}
+
+} catch (error) {
+
+res.status(500).json({ status: "error", message: "Internal Server Error" });
+
+}
+
+});
+
+router.delete("/:id", async (req, res) => {
+
+try {
+
+const id = Number(req.params.id);
+
+const success = await cartManagerFs.deleteCart(id);
+
+if (success) {
+
+res.json({ status: "success", message: "Cart deleted successfully" });
+
+} else {
+
+res.status(404).json({ status: "error", message: "Cart not found" });
+
+}
+
+} catch (error) {
+
+res.status(500).json({ status: "error", message: "Internal Server Error" });
+
+}
+
+});
+
+module.exports = router;

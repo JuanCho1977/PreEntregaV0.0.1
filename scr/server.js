@@ -15,13 +15,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use('/static', express.static(__dirname + "Public"));
 
-app.use(".scr/cliente", ClientRouter);
-app.use(".scr/producto", ProductRouter);
-//app.use("api/cart",CartRouter);
+app.use("api/cliente", ClientRouter);
+app.use("api/producto", ProductRouter);
 
-//app.get ('/users', (require, response) => { response.send("esta funcionando")
+app.use("/api/cart", CartRouter);
 
-//});
+app.get("/users", (req, res) => {
+
+res.send("esta funcionando");
+
+ });
+
 
 
 

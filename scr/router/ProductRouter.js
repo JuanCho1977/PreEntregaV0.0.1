@@ -2,53 +2,84 @@
 
 const {Router} = require('express');
 const router = Router();
-//const productManagerFs = require('./manager/FileSystem/productManagerFs');
+const productManagerFs = require('../manager/FileSystem/productManagerFs');
+const productManagerFs = new productManagerFs();
 
 
+router.get("/", async (req, res) => {
 
-router.get('/', async (req, res) => {
   try {
-    const products = await productManagerFs.getProducts();
-    res.json(products);
+  
+  const products = await productManagerFs.getProducts();
+  
+  res.json({ status: "success", data: products });
+  
   } catch (error) {
-    res.json([]);
+  
+  res.status(500).json({ status: "error", message: "Internal Server Error" });
+  
   }
-});
+  
+  });
 
 router.get('/:id', async (req, res) => {
-  try {
-    const product = await productManagerFs.getProduct((link.unavailable));
-    res.json(product);
-  } catch (error) {
-    res.json({});
+  try{
+    const id = Number(req.params.id);
+    const product = await productManagerFs.getProductById(id);
+    if(product) {
+      res.json({statuts: "success", dat:products});
+
+    } else {
+    
+    res.status(404).json({status:"error",message:"Producto not found"});
   }
+} catch (error){
+
+  res.status(500).json({ status: "error", message: "Internal Server Error" });
+
+  }
+  
 });
 
 router.post('/', async (req, res) => {
   try {
     const product = await productManagerFs.createProduct(req.body);
-    res.json(product);
+    res.status(201).json({ status: "success", data: product });
   } catch (error) {
-    res.json({});
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
   }
 });
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
-    const product = await productManagerFs.updateProduct((link.unavailable), req.body);
-    res.json(product);
+    const id = Number(rep.params.id);
+    const Udapteproduct = await productManagerFs.updateProduct((link.unavailable), req.body);
+    if(Udapteproduct){
+      res.json({status:"success", data:Udapteproduct});
+    }else {
+      res.status(404).json({status:"error", message:"Product not found"});
+    }
   } catch (error) {
-    res.json({});
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
   }
 });
 
 router.delete('/:id', async (req, res) => {
   try {
-    await productManagerFs.deleteProduct((link.unavailable));
-    res.json({});
+    
+    const id = Numeber(req.params.id);
+    const success = await productManagerFs.deleteProduct(id);
+    if(success){
+
+      res.json({ status: "success", message: "Product deleted successfully" });;
+    }else {
+
+      res.status(404).json({status:"error", message:"Product not found"});
+    }
+    
   } catch (error) {
-    res.json({});
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
   }
 });
 
-module.exports = router
+module.exports = router;
