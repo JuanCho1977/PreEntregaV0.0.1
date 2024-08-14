@@ -8,7 +8,7 @@ class CartManager {
         this.cart = [];
     }
 
-    async addProductToCart(productId) {
+    async agregarAlCarrito(productId) {
         try {
             const productPath = path.join(__dirname, 'dbproducts', `${productId}.json`);
             if (fs.existsSync(productPath)) {
@@ -19,7 +19,7 @@ class CartManager {
                 throw new Error('Producto no encontrado');
             }
         } catch (error) {
-            return { status: "error", message: error.message };
+            return [];
         }
     }
 
@@ -27,19 +27,19 @@ class CartManager {
         return this.cart;
     }
 
-    async removeProductFromCart(productId) {
-        try {
-            const index = this.cart.findIndex(product => product.id === productId);
-            if (index !== -1) {
-                this.cart.splice(index, 1);
-                return { status: "success", message: "Product removed from cart" };
-            } else {
-                throw new Error('Product not in cart');
-            }
-        } catch (error) {
-            return { status: "error", message: error.message };
-        }
-    }
+    //async QuitarDelCarrito(productId) {
+    //    try {
+    //        const index = this.cart.findIndex(product => product.id === productId);
+    //        if (index !== -1) {
+    //            this.cart.splice(index, 1);
+   // //            return { status: "success", message: "producto Eliminado del carrito" };
+    //        } else {
+    //            throw new Error('Producto no encontrado');
+    //        }
+    //    } catch (error) {
+    //        return [];
+    //    }
+    //}
 }
 
 module.exports = CartManager;
