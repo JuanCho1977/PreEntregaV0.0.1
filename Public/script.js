@@ -44,8 +44,8 @@ formProduct.addEventListener('submit', async (e) => {
 
 let carrito = [];
 
-function agregarAlCarrito(producto) {
-carrito.push(producto);
+function agregarAlCarrito(productoId) {
+carrito.push(productoId);
 actualizarCarrito();
 }
 
@@ -56,7 +56,9 @@ listaCarrito.innerHTML = '';
 
 carrito.forEach((producto, indice) => {
 const elemento = document.createElement('lista');
-elemento.textContent = ${producto.nombre} - ${producto.precio};
+
+elemento.textContent = `${producto.nombre} - ${producto.precio}`;
+
 listaCarrito.appendChild(elemento);
 });
 }
