@@ -10,28 +10,36 @@ const viewsrouter =       require('./router/viewsRouter.js')
 const productManagerFs =  require('./managers/FileSystem/ProductManagerFs.js');
 const cartManagerFs =     require('./managers/FileSystem/cartManagerFs.js');
 const clientManagerFs =   require('./managers/FileSystem/clientManagerFs.js');
+const multer =            require('multer');
 const handlebar =         requier('express-handlebar');
+const { Server } =        require('socket.io');
 
-app.post('/', uploader.single('miFile'), (req,res)=>{
-  res.send('archivo subido')
-})
+const uploader = multer({ dest: 'uploads/' });
+
+app.post('/', uploader.single('miFile'), (req,res) => {
+
+res.send('archivo subido');
+
+});
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use('/static', express.static(__dirname + "Public"));
-//configuro Handlebars
+app.use('/static', express.static(__dirname + 'Public'));
+//configuro Handlebar
 app.engine('handlebars', handlebar.engine());
 app.set('views', __dirname + '/views');
-app.set('view engine', 'handlebar');
+app.set('view engine', 'handlebars');
 //importo el de views de handlebars
 app.use('/vistas', viewsrouter);
 
-app.use("api/cliente", ClientRouter);
-app.use("api/producto", ProductRouter);
-app.use("/api/cart", CartRouter);
+app.use('api/cliente', ClientRouter);
+app.use('api/producto', ProductRouter);
+app.use('/api/cart', CartRouter);
 
-app.get("/users", (req, res) => {
+app.get('/users', (req, res) => {
 
-res.send("esta funcionando");
+res.send('esta funcionando');
 
  });
 
@@ -41,3 +49,9 @@ res.send("esta funcionando");
 app.listen(PORT, () => {
     console.log('Server esta escuchando en puerto: ', PORT);
   });
+
+const httpServer = app.listen(PORT, () => {
+    console.log('escuchando en el puerto: ', PORT)
+  });
+
+  const io = new Server(httpServer);
