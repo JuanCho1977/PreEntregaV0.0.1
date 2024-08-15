@@ -6,7 +6,7 @@ const productManagerFs = new productManagerFs();
 
 router.get ( '/vistas', (req, res ) => {
     try {
-        const productos = await productManagerFs.getProductos();  // Obtén los productos aquí
+        const productos = await productManagerFs.getProducts();  // Obtén los productos aquí
          res.render('realTimeProducts', { 
             Name: 'listado de productos',
             title: 'HOME - ECOMMERS',
