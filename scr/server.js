@@ -61,16 +61,23 @@ const productSocket = (io) => {
     console.log ('Nuevo cliente conectado')
     const {
         getProductos,
-        createProduct
+        createProduct,
+        deleteProducto,
   
     } = new productManagerFs()
     const productos = await getProductos() 
     socket.emit('productos', product)
 
-    socket.on('addProduct', async lista => {
+    socket.on('agregoProducto', async lista => {
         await createProduct(lista)
 
     })
+
+    socket.on('DeleteProduct', async botonId => {
+      await deleteProducto(botonId)
+  
+  
+  
   });
 
 }
