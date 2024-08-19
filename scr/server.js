@@ -16,6 +16,11 @@ const { Server } =        require('socket.io');
 const app = express();
 const PORT = process.env.PORT ||  8081;
 
+const httpServer = app.listen(PORT, () => {
+  console.log('escuchando en el puerto: ', PORT)
+});
+
+
 //const uploader = multer({ dest: 'uploads/' });
 //app.post('/', uploader.single('miFile'), (req,res) => {
 //res.send('archivo subido');
@@ -45,13 +50,10 @@ res.send('esta funcionando');
 
 
 
-app.listen(PORT, () => {
-    console.log('Server esta escuchando en puerto: ', PORT);
-  });
+//app.listen(PORT, () => {
+//    console.log('Server esta escuchando en puerto: ', PORT);
+//  });
 
-const httpServer = app.listen(PORT, () => {
-    console.log('escuchando en el puerto: ', PORT)
-  });
 
 
 
@@ -67,6 +69,7 @@ const productSocket = (io) => {
     } = new productManagerFs()
     const productos = await getProductos() 
     socket.emit('productos', product)
+  
 
     socket.on('agregoProducto', async lista => {
         await createProduct(lista)
@@ -75,10 +78,11 @@ const productSocket = (io) => {
 
     socket.on('DeleteProduct', async botonId => {
       await deleteProducto(botonId)
+    })
   
   
   
-  });
+  })
 
 }
 
