@@ -54,4 +54,40 @@ const httpServer = app.listen(PORT, () => {
     console.log('escuchando en el puerto: ', PORT)
   });
 
-  const io = new Server(httpServer);
+
+
+router.get('/home', async (res,res) => {
+
+  const {getProductos} = new productManagerFs()
+    try{
+
+      const product = getProductos()
+      res.render('home', {product})
+
+    } catch (error) {
+     console.log (error)
+    }
+  
+ })
+
+const io = new Server(httpServer);
+const productSocket = (io) => {
+  io.on('connection', async socket=> {
+    console.log ('Nuevo cliente conectado')
+    const {
+        getProductos,
+        createProduct
+  
+    } = new productManagerFs()
+    const productos = await getProductos() 
+    socket.emit('productos', product)
+
+    socket.on('addProduct', async lista => {
+        await createProduct(lista)
+
+    })
+  });
+
+}
+
+productSocket (io);

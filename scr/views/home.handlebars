@@ -1,0 +1,38 @@
+    
+<h1>Bienvenidos al homet </h1>
+
+<div id="Lista-productos"></div>
+
+<div>
+    <h1>Binvenido al home</h1>
+
+    {{#if isAdmin}}
+        {{#each productos}}
+
+        
+            <div class='card w-25'> 
+                    <img src='${product.thmbnall}' class='card-image-top'>
+                    <div class='card-boby'>
+                        <p>Nombre:${product.title}</p>
+                        <p> Descripcion:${prodcut.description}</p>
+                        <p>Stock: ${porduct.Stock}</p>
+                        <p>Precio:${product.stock}</p>
+
+                    </div> 
+                    
+                    <div class='card-footer'>
+                        <button class='btn btn-outine-dark w-100'> DETALLE </button>
+
+
+                    </div>
+
+            </div>
+            
+           
+           
+        {{/each}}
+    {{else}}
+        <h2>No tienes permisos para ver los productos</h2>
+    {{/if}}    
+</div>
+<script src="/assets/js/index.js"></script>
