@@ -1,17 +1,7 @@
 const { Router } =  require ('express');
 const router =  Router();
-const productManagerFs = require('../manager/FileSystem/productManagerFs');
-const productManagerFs = new productManagerFs();
-
-router.get('/', (req, res) => {
-
-    
-})
-
-
-
-
-
+const ProductManagerFs = require('../managers/FileSystem/productManagerFs');
+const productManagerFs = new ProductManagerFs();
 
 
 router.get ( '/vistas', async (req, res ) => {

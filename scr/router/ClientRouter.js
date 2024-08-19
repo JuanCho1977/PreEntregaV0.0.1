@@ -50,7 +50,9 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router
-app.get ('/scr/router', (require, response) => { response.send("esta funcionando")
 
-});
+//app.get ('/scr/router', (req, res) => { 
+  //response.send("esta funcionando")
+
+//});
+module.exports = router

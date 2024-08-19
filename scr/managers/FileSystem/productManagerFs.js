@@ -1,12 +1,21 @@
 //productManagerFs.js
 
 const fs = require('fs');
-const path = './dbproduct/dbproduct.json'
+const products = './dbproduct/dbproduct.json'
 
 class productManagerFs {
   constructor() {
     
-    this.products = {};
+    this.products = products;
+  }
+
+  async readPRoducts(){
+    if(fs.existsSync(products)){
+        const productsJson = await fs.promises.readFile(products, 'utf-8')
+        const productsJs = JSON.parse(productsJson)
+        return productsJs
+    } 
+    return [] 
   }
 
   async getProductos() {
@@ -55,3 +64,4 @@ class productManagerFs {
   }
 
 }
+module.exports = productManagerFs

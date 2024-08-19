@@ -1,26 +1,25 @@
 //Server.js
 
-const PORT = 8080;
+
 const express =           require('express');
-const app =               express();
 const ProductRouter =     require('./router/ProductRouter.js');
 const ClientRouter =      require('./router/ClientRouter.js');
 const CartRouter =        require('./router/CartRouter.js');
 const viewsrouter =       require('./router/viewsRouter.js')
-const productManagerFs =  require('./managers/FileSystem/ProductManagerFs.js');
+const productManagerFs =  require('./managers/FileSystem/productManagerFs.js');
 const cartManagerFs =     require('./managers/FileSystem/cartManagerFs.js');
 const clientManagerFs =   require('./managers/FileSystem/clientManagerFs.js');
-const multer =            require('multer');
-const handlebar =         requier('express-handlebar');
+const { uploader }  =     require('./utils/multer.js')
+const handlebar =         require('express-handlebars');
 const { Server } =        require('socket.io');
 
-const uploader = multer({ dest: 'uploads/' });
+const app = express();
+const PORT = process.env.PORT ||  8081;
 
-app.post('/', uploader.single('miFile'), (req,res) => {
-
-res.send('archivo subido');
-
-});
+//const uploader = multer({ dest: 'uploads/' });
+//app.post('/', uploader.single('miFile'), (req,res) => {
+//res.send('archivo subido');
+//});
 
 
 app.use(express.json());
@@ -33,8 +32,8 @@ app.set('view engine', 'handlebars');
 //importo el de views de handlebars
 app.use('/vistas', viewsrouter);
 
-app.use('api/cliente', ClientRouter);
-app.use('api/producto', ProductRouter);
+app.use('/api/cliente', ClientRouter);
+app.use('/api/producto', ProductRouter);
 app.use('/api/cart', CartRouter);
 
 app.get('/users', (req, res) => {
@@ -55,20 +54,6 @@ const httpServer = app.listen(PORT, () => {
   });
 
 
-
-router.get('/home', async (res,res) => {
-
-  const {getProductos} = new productManagerFs()
-    try{
-
-      const product = getProductos()
-      res.render('home', {product})
-
-    } catch (error) {
-     console.log (error)
-    }
-  
- })
 
 const io = new Server(httpServer);
 const productSocket = (io) => {
