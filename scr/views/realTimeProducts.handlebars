@@ -42,7 +42,7 @@
 
                     </div> 
                     <div class='card-footer'>
-                        <button class='btn btn-outine-dark w-100'></button>
+                        <button class='btn btn-outine-dark w-100' id='${product.id}' onclik='eliminarProducto(${product.id})'>Eliminar </button>
 
 
                     </div>
@@ -54,7 +54,8 @@
     
     
     })
-    form.addEventListener('submit', lista => {
+
+    form.addEventListener ('submit', lista => {
         lista.preventDefault()
         const title = form.elements.titel.value
         const price = form.elements.price.value
@@ -74,8 +75,13 @@
         form.reset()       
     })
 
-
-
+    BotonElim = querySelector.All ('boton')
+    BotonElim.forEach(boton =>{
+        boton.addEventListener('clik', evt =>{
+            const botonId = boton.getAttribute('id')
+            socket.emit ('DeleteProduct', {botonId})
+        })
+    })
 
 </Script>
     
